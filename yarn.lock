@@ -4691,6 +4691,11 @@ svgo@^2.8.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+swr@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.3.0.tgz#c6531866a35b4db37b38b72c45a63171faf9f4e8"
+  integrity sha512-dkghQrOl2ORX9HYrMDtPa7LTVHJjCTeZoB1dqTbnnEDlSvN8JEKpYIYurDfvbQFUUS8Cg8PceFVZNkW0KNNYPw==
+
 tailgrids@^1.1.6, tailgrids@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/tailgrids/-/tailgrids-1.1.7.tgz#2b4ac426a7e90f81fdf29cb396dd8c7a677400c0"

@@ -1,7 +1,15 @@
 import { Fragment } from 'react';
 //import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
-import { HomeIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+	HomeIcon,
+	ArchiveBoxIcon,
+	ArrowPathRoundedSquareIcon,
+	BanknotesIcon,
+	ShoppingBagIcon,
+	WrenchScrewdriverIcon,
+	XMarkIcon,
+} from '@heroicons/react/24/outline';
 import { classNames } from '../../util/helpers';
 import Link from 'next/link';
 
@@ -11,7 +19,46 @@ interface Props {
 }
 
 const navItems = [
-	{ name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
+	{ name: 'Dashboard', href: '/app', icon: HomeIcon, current: false },
+	{
+		name: 'Inventory',
+		href: '/app/inventory',
+		icon: ArchiveBoxIcon,
+		current: false,
+	},
+	{
+		name: 'Marketplace',
+		href: '/app/shop',
+		icon: ShoppingBagIcon,
+		current: false,
+		subs: [
+			{ name: 'Reports', href: '/app/shop/reports', current: false },
+			{ name: 'Brands', href: '/app/shop/brands', current: false },
+			{ name: 'Shops', href: '/app/shop/channels', current: false },
+			{ name: 'Listings', href: '/app/shop/listings', current: false },
+			{ name: 'Orders', href: '/app/shop/orders', current: false },
+			{ name: 'Shipments', href: '/app/shop/shipments', current: false },
+			{ name: 'Customers', href: '/app/shop/customers', current: false },
+			{ name: 'Settings', href: '/app/shop/settings', current: false },
+		],
+	},
+	{
+		name: 'Projects',
+		href: '/app/projects',
+		icon: ArrowPathRoundedSquareIcon,
+		current: false,
+	},
+	{ name: 'Invest', href: '/app/invest', icon: BanknotesIcon, current: false },
+	{
+		name: 'Server',
+		href: '/app/server',
+		icon: WrenchScrewdriverIcon,
+		current: false,
+		subs: [
+			{ name: 'Logs', href: '/app/server/logs', current: false },
+			{ name: 'Text & Language', href: '/app/server/language', current: false },
+		],
+	},
 ];
 
 const MainSidebar = ({ isOpen, setOpen }: Props): JSX.Element => {

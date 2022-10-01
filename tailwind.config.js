@@ -9,7 +9,11 @@ module.exports = {
 		'./layouts/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			aspectRatio: {
+				card: '3.5 / 2.5',
+			},
+		},
 		colors: {
 			transparent: 'transparent',
 			current: 'currentColor',

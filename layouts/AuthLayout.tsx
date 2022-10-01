@@ -36,7 +36,7 @@ const AuthLayout = ({ children }: Props): JSX.Element => {
 						greeting={greeting}
 					/>
 				</div>
-				<main>{children}</main>
+				<main className="bg-gray-50">{children}</main>
 			</div>
 		</div>
 	);
