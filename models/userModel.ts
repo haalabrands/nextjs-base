@@ -1,14 +1,14 @@
 /**
  * User model schema
  */
-export interface UserProps {
+export interface UserModel {
 	id: number;
 	username: string;
 	email: string;
 	password: string;
 	greeting: string;
 	full_name: string;
-	phone: string | null;
+	phone?: string | null;
 }
 
 /**
