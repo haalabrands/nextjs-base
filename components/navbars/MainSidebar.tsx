@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import {
 	HomeIcon,
 	ArchiveBoxIcon,
-	ArrowPathRoundedSquareIcon,
+	PaintBrushIcon,
 	BanknotesIcon,
 	ShoppingBagIcon,
 	WrenchScrewdriverIcon,
@@ -27,7 +27,7 @@ const navItems = [
 		current: false,
 	},
 	{
-		name: 'Marketplace',
+		name: 'Shops',
 		href: '/app/shop',
 		icon: ShoppingBagIcon,
 		current: false,
@@ -45,7 +45,7 @@ const navItems = [
 	{
 		name: 'Projects',
 		href: '/app/projects',
-		icon: ArrowPathRoundedSquareIcon,
+		icon: PaintBrushIcon,
 		current: false,
 	},
 	{ name: 'Invest', href: '/app/invest', icon: BanknotesIcon, current: false },
