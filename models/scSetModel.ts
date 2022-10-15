@@ -7,9 +7,14 @@ export interface SetModel {
 	id: number;
 	slug: string;
 	year: number;
-	year_end: number | null;
-	brand_id: number;
-	brand_set_id: number;
+	brand: string;
+	sport: string;
+	brand_set_id: number | null;
+	name: string | null;
+	base_set_size: number | null;
+	total_set_size: number | null;
+	added_cards_qty: number;
+	release_date: string | null;
 	img_src: string | null;
 	info: string | null;
 	created_at: string;

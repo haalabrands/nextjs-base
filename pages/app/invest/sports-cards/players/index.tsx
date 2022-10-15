@@ -1,50 +1,31 @@
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
 import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import config from '../../../../../config';
+import { playerPhoto } from '../../../../../models/scPlayerModel';
 
-const baseUrl = '/app/invest/sports-cards';
+const baseUrl = config.sportsCardPageUrl;
 
-const players = [
-	{
-		id: 1,
-		slug: 'michael-jordan',
-		name: 'Michael Jordan',
-		sports: [
-			{ slug: 'baseball', label: 'Baseball' },
-			{ slug: 'basketball', label: 'Basketball' },
-		],
-		imageUrl:
-			'https://firebasestorage.googleapis.com/v0/b/cardladder-71d53.appspot.com/o/cards%2Fthumb_ndLOcgBZiOMgKZHR8h9k?alt=media',
-	},
-	{
-		id: 2,
-		slug: 'mickey-mantle',
-		name: 'Mickey Mantle',
-		sports: [{ slug: 'baseball', label: 'Baseball' }],
-		imageUrl:
-			'https://firebasestorage.googleapis.com/v0/b/cardladder-71d53.appspot.com/o/cards%2Fthumb_LpOJ5d1Oo4VqT9I8wmCz?alt=media',
-	},
-	{
-		id: 3,
-		slug: 'lebron-james',
-		name: 'LeBron James',
-		sports: [{ slug: 'basketball', label: 'Basketball' }],
-		imageUrl:
-			'https://firebasestorage.googleapis.com/v0/b/cardladder-71d53.appspot.com/o/cards%2Fthumb_sNfLc6Iqbu0GBmHAWDaO?alt=media',
-	},
-	{
-		id: 4,
-		slug: 'josh-allen',
-		name: 'Josh Allen',
-		sports: [{ slug: 'football', label: 'Football' }],
-		imageUrl:
-			'https://firebasestorage.googleapis.com/v0/b/cardladder-71d53.appspot.com/o/cards%2Fthumb_uFDs2zGbZQLZKFzQpYi4?alt=media',
-	},
-];
+const pagePath = 'players';
 
-const Page: NextPage = () => {
+// GetStaticProps gets called at build time
+export const getStaticProps: GetStaticProps = async (/*context*/) => {
+	const response = await fetch(`${config.sportsCardApiUrl}/players`);
+	const players = await response.json();
+
+	// By returning { props: { posts } }, the Blog component
+	// will receive `posts` as a prop at build time
+	return {
+		props: {
+			players: JSON.stringify(players),
+		},
+	};
+};
+
+const Page: NextPage = ({ players }) => {
+	players = JSON.parse(players);
 	const pageTitle = 'Players';
 
 	return (
@@ -55,7 +36,8 @@ const Page: NextPage = () => {
 				<div className="mx-auto overflow-hidden">
 					<TradingCardPageNav
 						activeTab="players"
-						addNew={baseUrl + `/players/add`}
+						addNew={`${baseUrl}/${pagePath}/add`}
+						addNewLabel="Add Player"
 					/>
 					<div className="mt-8">
 						<div className="overflow-hidden bg-white shadow sm:rounded-md">
@@ -63,7 +45,7 @@ const Page: NextPage = () => {
 								{players.map((player) => (
 									<li key={`player${player.id}`}>
 										<a
-											href={`${baseUrl}/players/${player.slug}`}
+											href={`${baseUrl}/${pagePath}/${player.slug}`}
 											className="block hover:bg-gray-50"
 										>
 											<div className="flex items-center px-4 py-4 sm:px-6">
@@ -71,7 +53,7 @@ const Page: NextPage = () => {
 													<div className="flex-shrink-0">
 														<img
 															className="h-16 w-16 rounded-full"
-															src={player.imageUrl}
+															src={playerPhoto(player)}
 															alt={player.name}
 														/>
 													</div>

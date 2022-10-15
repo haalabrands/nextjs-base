@@ -4,8 +4,8 @@ import AuthLayout from '../../../layouts/AuthLayout';
 
 const categories = [
 	{
-		slug: 'cards',
-		label: 'Trading Cards',
+		slug: 'sports-cards',
+		label: 'Sports Cards',
 		imgSrc: '/img/cat_sports-cards_500sq.jpg',
 	},
 	{

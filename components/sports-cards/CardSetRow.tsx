@@ -78,60 +78,32 @@ const CardSetRow = ({
 				<div className="flex flex-col space-y-2 mt-4 px:4 lg:px-8">
 					<div className="">
 						<label
-							htmlFor="packsPerBox"
-							className="block text-sm font-semibold leading-6 text-gray-900"
-						>
-							Box Price (MSRP)
-						</label>
-						<div className="mt-1">
-							<input
-								type="text"
-								id="packsPerBox"
-								className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-					</div>
-					<div className="">
-						<label
-							htmlFor="packsPerBox"
+							htmlFor="subsetName"
 							className="block text text-sm font-semibold leading-6 text-gray-900"
 						>
-							Cards per pack
+							Name
 						</label>
 						<div className="mt-1">
 							<input
 								type="text"
-								id="packsPerBox"
+								id="subsetName"
 								className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							/>
 						</div>
 					</div>
 					<div className="">
 						<label
-							htmlFor="packsPerBox"
-							className="block text-sm font-semibold leading-6 text-gray-900"
+							htmlFor="subsetName"
+							className="block text text-sm font-semibold leading-6 text-gray-900"
 						>
-							Packs per box
+							# of Cards
 						</label>
 						<div className="mt-1">
 							<input
-								type="text"
-								id="packsPerBox"
-								className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							/>
-						</div>
-					</div>
-					<div className="">
-						<label
-							htmlFor="boxesPerCase"
-							className="block text-sm font-semibold leading-6 text-gray-900"
-						>
-							Boxes per case
-						</label>
-						<div className="mt-1">
-							<input
-								type="text"
-								id="boxesPerCase"
+								type="number"
+								id="subsetName"
+								min="0"
+								step="1"
 								className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							/>
 						</div>
@@ -141,7 +113,7 @@ const CardSetRow = ({
 							htmlFor="boxImage"
 							className="block text-sm font-semibold leading-6 text-gray-900"
 						>
-							Box Photo
+							Photo
 						</label>
 						<div className="mt-1 flex items-center">
 							<span className="w-24 max-w-24 aspect-ratio-card overflow-hidden bg-gray-100">
@@ -161,15 +133,15 @@ const CardSetRow = ({
 					</div>
 				</div>
 			)}
-			<div className="flex justify-center mt-4">
+			{/*<div className="flex justify-center mt-4">
 				<button
 					type="button"
 					className="flex items-center space-x-2 text-sm text-gray-400 hover:text-red"
 				>
 					<TrashIcon className="w-4 h-4" />
-					<span>Remove Box</span>
+					<span>Remove Set Group</span>
 				</button>
-			</div>
+			</div>*/}
 		</div>
 	);
 };

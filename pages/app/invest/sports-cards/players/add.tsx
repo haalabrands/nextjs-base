@@ -16,7 +16,7 @@ const Page: NextPage = () => {
 
 	const tab = 'players';
 
-	const submitForm = async (event) => {
+	const submitForm = async (event: any) => {
 		// Stop the form from submitting and refreshing the page.
 		event.preventDefault();
 
@@ -28,7 +28,7 @@ const Page: NextPage = () => {
 			name: event.target.name.value,
 			sport_ids: [event.target.sport.value],
 			rookie_year: event.target.rookie_year.value,
-			value_category: event.target.value_category.value,
+			talent_level: event.target.talent_level.value,
 			birthdate: event.target.birthdate.value,
 		};
 		console.log('inputData', inputData);
@@ -46,7 +46,7 @@ const Page: NextPage = () => {
 		console.log('Player created', player);
 	};
 
-	const validateForm = (data) => {
+	const validateForm = (data: any) => {
 		console.log('Validating...', data);
 		if (!data.name) {
 			return false;
@@ -57,7 +57,7 @@ const Page: NextPage = () => {
 		return true;
 	};
 
-	const createPlayer = async (inputData) => {
+	const createPlayer = async (inputData: any) => {
 		const apiUrl = '/api/sports-cards/players/add';
 		console.log('apiUrl', apiUrl);
 		const response = await fetch(apiUrl, {
@@ -124,7 +124,7 @@ const Page: NextPage = () => {
 										className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									>
 										<option></option>
-										{data.map((sport) => {
+										{data.map((sport: any) => {
 											return <option value={sport.slug}>{sport.name}</option>;
 										})}
 									</select>
@@ -156,20 +156,23 @@ const Page: NextPage = () => {
 									</div>
 								</div>
 								<div>
-									<label htmlFor="valueCategory" className="block formLabelText">
+									<label htmlFor="talentLevel" className="block formLabelText">
 										Value Category
 									</label>
 									<select
-										id="valueCategory"
-										name="value_category"
+										id="talentLevel"
+										name="talent_level"
 										className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									>
 										<option></option>
-										<option value="common">Common</option>
-										<option value="key">Key Player</option>
+										<option value="bust">Bust</option>
+										<option value="backup">Backup</option>
+										<option value="prospect">Prospect</option>
+										<option value="upcomer">Up-and-Comer</option>
+										<option value="role_player">Role Player</option>
 										<option value="star">Star</option>
-										<option value="all-star">All-Star</option>
-										<option value="mvp">MVP</option>
+										<option value="superstar">Superstar</option>
+										<option value="generational">Generational</option>
 										<option value="legend">Legend</option>
 									</select>
 								</div>

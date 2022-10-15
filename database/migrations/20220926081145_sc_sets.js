@@ -7,15 +7,16 @@ const tableName = 'sc_sets';
 exports.up = async function (knex) {
 	await knex.schema.createTable(tableName, function (table) {
 		table.increments('id');
-		table.string('name').notNullable();
 		table.string('slug', 100).notNullable();
 		table.smallint('year').unsigned().notNullable();
-		table.smallint('year_end').unsigned();
-		table.integer('brand_id').unsigned().notNullable();
-		table.integer('brand_set_id').unsigned().notNullable();
+		table.string('brand').notNullable();
+		table.string('sport').notNullable();
+		table.integer('brand_set_id').unsigned();
+		table.string('name');
 
-		table.smallint('card_qty').unsigned();
-		table.date('release_date');
+		table.integer('base_set_size').unsigned();
+		table.integer('total_set_size').unsigned();
+		table.smallint('added_cards_qty').unsigned().defaultTo(0);
 
 		table.integer('page_views').unsigned().defaultTo(0);
 
@@ -23,6 +24,11 @@ exports.up = async function (knex) {
 		table.text('info');
 
 		table.unique(['slug'], { indexName: 'sc_set_slug' });
+		table.index(['year'], { indexName: 'sc_set_year_idx' });
+		table.index(['brand'], { indexName: 'sc_set_brand_idx' });
+		table.index(['sport'], { indexName: 'sc_set_sport_idx' });
+
+		table.date('release_date');
 
 		table.timestamp('created_at').defaultTo(knex.fn.now());
 		table.timestamp('updated_at');

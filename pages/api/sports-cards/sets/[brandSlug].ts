@@ -22,8 +22,8 @@ export default async function handler(
 		const sets = await db
 			.select()
 			.from(setTableName)
-			.where('brand_id', brand.id)
-			.orderBy('page_views', 'DESC');
+			.where('brand', brandSlug)
+			.orderBy('slug', 'ASC');
 		console.log('api sets: ', sets);
 
 		res.status(200).json(sets);

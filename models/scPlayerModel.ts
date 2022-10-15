@@ -23,7 +23,7 @@ export interface PlayerModel {
 	draft_pick?: number | null;
 	hof_year?: number | null;
 
-	value_category?: string | null;
+	talent_level?: string | null;
 	cards_qty?: number;
 
 	img_src: string | null;
@@ -38,4 +38,8 @@ export interface PlayerModel {
 
 	created_at: string;
 	updated_at: string;
+}
+
+export const playerPhoto = (data: PlayerModel) => {
+	return data.img_src ?? '/img/empty-card.jpg';
 }

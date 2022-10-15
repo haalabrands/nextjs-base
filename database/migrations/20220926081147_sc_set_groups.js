@@ -14,10 +14,14 @@ exports.up = async function (knex) {
 			.notNullable();
 		table.integer('brand_insert_id').unsigned();
 
-		table.mediumint('cards_qty').unsigned();
+		table.integer('set_size').unsigned();
+		table.smallint('added_cards_qty').unsigned().defaultTo(0);
 		table.string('num_prefix');
 		table.string('num_start');
 		table.string('num_end');
+
+		table.mediumint('max_print');
+		table.boolean('is_serialed');
 
 		table.string('img_src');
 		table.text('info');

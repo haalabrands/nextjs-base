@@ -1,0 +1,3 @@
+.formLabelText {
+    @apply text-sm font-semibold text-gray-700;
+}

@@ -13,6 +13,7 @@ export interface CardModel {
 	set_parallel_id: number | null;
 	card_number: string;
 	serial_number: number;
+	print_run: number;
 	player_ids: JSON | null;
 	team_ids: JSON | null;
 	is_rookie: boolean;

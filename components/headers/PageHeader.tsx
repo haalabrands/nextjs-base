@@ -4,7 +4,7 @@ interface Props {
 
 const PageHeader = ({ title }: Props): JSX.Element => {
 	return (
-		<div className="md:flex md:items-center md:justify-between py-4 px-4">
+		<div className="md:flex md:items-center md:justify-between py-4">
 			<div className="min-w-0 flex-1">
 				<h2 className="text-2xl semibold text-gray-900">{title}</h2>
 			</div>

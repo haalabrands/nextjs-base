@@ -7,11 +7,12 @@ import config from '../../../../../../config';
 import Link from 'next/link';
 
 const pagePath = 'sets';
+const baseApiUrl = config.sportsCardApiUrl;
 
 // This function gets called at build time
 export async function getStaticPaths() {
 	// Call API to get all available brands
-	const res = await fetch(config.sportsCardApiUrl + '/brands');
+	const res = await fetch(`${baseApiUrl}/brands`);
 	const brands = await res.json();
 
 	// Get the paths we want to pre-render based on posts
@@ -29,14 +30,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const brandSlug = params?.brandSlug;
 
 	// Get the active brand details
-	const brandRes = await fetch(config.sportsCardApiUrl + '/brands/' + brandSlug);
+	console.log(`${baseApiUrl}/brands/${brandSlug}`);
+	const brandRes = await fetch(`${baseApiUrl}/brands/${brandSlug}`);
 	const brand = await brandRes.json();
+	console.log('Brand', brand);
 
 	// Get all sets for this brand
-	const setRes = await fetch(
-		config.sportsCardApiUrl + '/' + pagePath + '/' + brandSlug
-	);
+	console.log(`${baseApiUrl}/${pagePath}/${brandSlug}`);
+	const setRes = await fetch(`${baseApiUrl}/${pagePath}/${brandSlug}`);
 	const sets = await setRes.json();
+	console.log('Sets', sets);
 
 	// the Page component will receive props below at build time
 	return {
@@ -75,9 +78,9 @@ const Page: NextPage = ({ brand, sets }) => {
 				<PageHeader title={pageTitle} />
 
 				<div className="mx-auto overflow-hidden">
-					<TradingCardPageNav activeTab="sets" addNew="/" />
+					<TradingCardPageNav activeTab="sets" addNew={`${config.sportsCardPageUrl}/${pagePath}/add`} />
 					<div className="mt-2">
-						<Link href={config.sportsCardPageUrl + '/brands'}>
+						<Link href={`${config.sportsCardPageUrl}/sets`}>
 							<a className="text-sm text-indigo-500">&laquo; All Brands</a>
 						</Link>
 					</div>
@@ -86,7 +89,7 @@ const Page: NextPage = ({ brand, sets }) => {
 							{sets[0] ? (
 								<ul role="list" className="mt-4 divide-y divide-gray-200">
 									{sets.map((set) => (
-										<li key={`set${set.id}`}>
+										<li key={`set_${set.id}`}>
 											<a
 												href={`${config.sportsCardPageUrl}/${pagePath}/${brand.slug}/${set.slug}`}
 												className="block hover:bg-gray-50"
@@ -96,14 +99,14 @@ const Page: NextPage = ({ brand, sets }) => {
 														<div className="flex-shrink-0">
 															<img
 																className="h-16 w-16 rounded-full"
-																src={set.imageUrl}
-																alt={set.name}
+																src={set.img_src ?? '/img/empty-card.jpg'}
+																alt=""
 															/>
 														</div>
 														<div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
 															<div>
 																<p className="truncate text-xl font-medium text-gray-700">
-																	{set.name}
+																	{set.year} {set.brand} {set.name} ({set.sport})
 																</p>
 															</div>
 														</div>

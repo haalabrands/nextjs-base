@@ -5,7 +5,7 @@ const sampleSetData = {
 		name: 'Mosaic',
 		year: 2020,
 		release_date: '2020-09-11',
-		card_qty: 615,
+		set_size: 615,
 		boxes: [
 			{
 				name: 'Hobby Box',
@@ -60,7 +60,7 @@ const sampleSetData = {
 			{
 				name: 'Base',
 				type: 'base',
-				cards_qty: 300,
+				set_size: 300,
 				num_prefix: null,
 				num_start: 1,
 				num_end: 300,
@@ -353,7 +353,7 @@ const sampleSetData = {
 			{
 				name: 'Veterans',
 				type: 'base_subset',
-				cards_qty: 200,
+				set_size: 200,
 				num_start: 1,
 				num_end: 200,
 				num_prefix: null,
@@ -364,7 +364,7 @@ const sampleSetData = {
 			{
 				name: 'Rookies',
 				type: 'base_subset',
-				cards_qty: 50,
+				set_size: 50,
 				num_start: 201,
 				num_end: 250,
 				num_prefix: null,
@@ -375,7 +375,7 @@ const sampleSetData = {
 			{
 				name: 'Pro Bowl',
 				type: 'base_subset',
-				cards_qty: 10,
+				set_size: 10,
 				num_start: 251,
 				num_end: 260,
 				num_prefix: null,
@@ -386,7 +386,7 @@ const sampleSetData = {
 			{
 				name: 'NFL Debut',
 				type: 'base_subset',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 261,
 				num_end: 280,
 				num_prefix: null,
@@ -397,7 +397,7 @@ const sampleSetData = {
 			{
 				name: 'Hall of Fame',
 				type: 'base_subset',
-				cards_qty: 15,
+				set_size: 15,
 				num_start: 281,
 				num_end: 295,
 				num_prefix: null,
@@ -408,7 +408,7 @@ const sampleSetData = {
 			{
 				name: 'MVPs',
 				type: 'base_subset',
-				cards_qty: 5,
+				set_size: 5,
 				num_start: 296,
 				num_end: 300,
 				num_prefix: null,
@@ -420,7 +420,7 @@ const sampleSetData = {
 			{
 				name: 'Blue Chips',
 				type: 'insert',
-				cards_qty: 15,
+				set_size: 15,
 				num_start: 1,
 				num_end: 15,
 				num_prefix: null,
@@ -444,7 +444,7 @@ const sampleSetData = {
 			{
 				name: 'Center Stage',
 				type: 'insert',
-				cards_qty: 30,
+				set_size: 30,
 				num_start: 1,
 				num_end: 30,
 				num_prefix: null,
@@ -456,7 +456,7 @@ const sampleSetData = {
 			{
 				name: 'Flea Flicker',
 				type: 'insert',
-				cards_qty: 15,
+				set_size: 15,
 				num_start: 1,
 				num_end: 15,
 				num_prefix: null,
@@ -508,7 +508,7 @@ const sampleSetData = {
 			{
 				name: 'Got Game?',
 				type: 'insert',
-				cards_qty: 25,
+				set_size: 25,
 				num_start: 1,
 				num_end: 25,
 				num_prefix: null,
@@ -560,7 +560,7 @@ const sampleSetData = {
 			{
 				name: 'In It to Win It',
 				type: 'insert',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 1,
 				num_end: 20,
 				num_prefix: null,
@@ -572,7 +572,7 @@ const sampleSetData = {
 			{
 				name: 'Got Game?',
 				type: 'insert',
-				cards_qty: 25,
+				set_size: 25,
 				num_start: 1,
 				num_end: 25,
 				num_prefix: null,
@@ -596,7 +596,7 @@ const sampleSetData = {
 			{
 				name: 'Men of Mastery',
 				type: 'insert',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 1,
 				num_end: 25,
 				num_prefix: null,
@@ -620,7 +620,7 @@ const sampleSetData = {
 			{
 				name: 'Montage',
 				type: 'insert',
-				cards_qty: 30,
+				set_size: 30,
 				num_start: 1,
 				num_end: 30,
 				num_prefix: null,
@@ -644,7 +644,7 @@ const sampleSetData = {
 			{
 				name: 'Old School',
 				type: 'insert',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 1,
 				num_end: 20,
 				num_prefix: null,
@@ -696,7 +696,7 @@ const sampleSetData = {
 			{
 				name: 'Overdrive',
 				type: 'insert',
-				cards_qty: 25,
+				set_size: 25,
 				num_start: 1,
 				num_end: 25,
 				num_prefix: null,
@@ -708,7 +708,7 @@ const sampleSetData = {
 			{
 				name: 'Stained Glass',
 				type: 'insert',
-				cards_qty: 10,
+				set_size: 10,
 				num_start: 1,
 				num_end: 10,
 				num_prefix: null,
@@ -720,7 +720,7 @@ const sampleSetData = {
 			{
 				name: 'Stare Masters',
 				type: 'insert',
-				cards_qty: 25,
+				set_size: 25,
 				num_start: 1,
 				num_end: 25,
 				num_prefix: null,
@@ -744,7 +744,7 @@ const sampleSetData = {
 			{
 				name: 'Swagger',
 				type: 'insert',
-				cards_qty: 15,
+				set_size: 15,
 				num_start: 1,
 				num_end: 15,
 				num_prefix: null,
@@ -756,7 +756,7 @@ const sampleSetData = {
 			{
 				name: 'Touchdown Masters',
 				type: 'insert',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 1,
 				num_end: 20,
 				num_prefix: null,
@@ -808,7 +808,7 @@ const sampleSetData = {
 			{
 				name: 'Will To Win',
 				type: 'insert',
-				cards_qty: 20,
+				set_size: 20,
 				num_start: 1,
 				num_end: 20,
 				num_prefix: null,

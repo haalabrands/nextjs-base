@@ -18,6 +18,7 @@ exports.up = async function (knex) {
 
 		table.string('card_number');
 		table.integer('serial_number').unsigned();
+		table.integer('print_run').unsigned();
 
 		table.json('player_ids').notNullable();
 		table.json('team_ids');

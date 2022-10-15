@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { BrandModel, brandTableName } from '../../../../models/scBrandModel';
+import { PlayerModel, playerTableName } from '../../../../models/scPlayerModel';
 import connect from '../../../../database/connect';
 
 export default async function handler(
@@ -9,10 +9,10 @@ export default async function handler(
 	const db = connect();
 
 	try {
-		const results: BrandModel = await db
+		const results: PlayerModel = await db
 			.select()
-			.from(brandTableName)
-			.orderBy('name', 'ASC');
+			.from(playerTableName)
+			.orderBy('id', 'ASC');
 
 		res.status(200).json(results);
 	} catch (err) {

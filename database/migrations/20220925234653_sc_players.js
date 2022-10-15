@@ -27,12 +27,15 @@ exports.up = async function (knex) {
 		table.smallint('draft_pick').unsigned();
 		table.smallint('hof_year').unsigned();
 
-		table.enum('value_category', [
-			'common',
-			'key',
+		table.enum('talent_level', [
+			'bust',
+			'backup',
+			'prospect',
+			'upcomer',
+			'role_player',
 			'star',
-			'all-star',
-			'mvp',
+			'superstar',
+			'generational',
 			'legend',
 		]);
 		table.smallint('cards_qty').unsigned().defaultTo(0);

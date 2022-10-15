@@ -4,6 +4,7 @@ import Link from 'next/link';
 interface Props {
 	activeTab: string;
 	addNew?: any;
+	addNewLabel?: string;
 	searchHandler?: any;
 }
 
@@ -23,6 +24,7 @@ const tabs = [
 const TradingCardPageNav = ({
 	activeTab,
 	addNew = null,
+	addNewLabel = 'Add New',
 	searchHandler = null,
 }: Props): JSX.Element => {
 	const isActiveTab = (tabSlug: string): boolean => {
@@ -45,7 +47,7 @@ const TradingCardPageNav = ({
 					{typeof addNew === 'string' ? (
 						<Link href={addNew}>
 							<a className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-								Add New
+								{addNewLabel}
 							</a>
 						</Link>
 					) : addNew ? (
@@ -53,7 +55,7 @@ const TradingCardPageNav = ({
 							type="button"
 							className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
-							Add New
+							{addNewLabel}
 						</button>
 					) : (
 						''

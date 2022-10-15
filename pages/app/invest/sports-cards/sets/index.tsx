@@ -5,11 +5,12 @@ import TradingCardPageNav from '../../../../../components/navbars/TradingCardPag
 import Link from 'next/link';
 import config from '../../../../../config';
 
-const baseUrl = '/app/invest/sports-cards';
+const pagePath = 'sets';
+const basePageUrl = '/app/invest/sports-cards';
 
 // GetStaticProps gets called at build time
 export const getStaticProps: GetStaticProps = async (/*context*/) => {
-	const response = await fetch(config.sportsCardApiUrl + '/sports-cards/sets');
+	const response = await fetch(`${config.sportsCardApiUrl}/brands`);
 	const brands = await response.json();
 
 	// By returning { props: { posts } }, the Blog component
@@ -24,13 +25,17 @@ export const getStaticProps: GetStaticProps = async (/*context*/) => {
 const Page: NextPage = ({ brands }) => {
 	brands = JSON.parse(brands);
 	//console.log('brands: ', brands[0])
-	const pageTitle = 'Trading Card Brands & Sets';
+	const pageTitle = 'Trading Card Brands';
 
 	return (
 		<AuthLayout>
 			<div className="py-4 px-8">
 				<div className="mx-auto overflow-hidden">
-					<TradingCardPageNav activeTab="sets" />
+					<TradingCardPageNav
+						activeTab="sets"
+						addNew={`${basePageUrl}/${pagePath}/add`}
+						addNewLabel="Add New Set"
+				 	/>
 					<div className="mt-4">
 						<PageHeader title={pageTitle} />
 						<div className="overflow-hidden bg-gray-50 shadow sm:rounded-md">
@@ -44,7 +49,7 @@ const Page: NextPage = ({ brands }) => {
 										className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow"
 									>
 										<div className="flex flex-1 flex-col justify-center p-8">
-											<Link href={baseUrl + '/sets/' + brand.slug}>
+											<Link href={`${basePageUrl}/sets/${brand.slug}`}>
 												<a>
 													<img
 														className="mx-auto w-auto max-w-[160px] max-h-24"
@@ -55,7 +60,7 @@ const Page: NextPage = ({ brands }) => {
 											</Link>
 										</div>
 										<div className="flex items-center justify-center">
-											<Link href={baseUrl + '/sets/' + brand.slug}>
+											<Link href={`${basePageUrl}/sets/${brand.slug}`}>
 												<a>
 													<h3 className="py-4 text-lg font-semibold text-gray-900">
 														{brand.name}
