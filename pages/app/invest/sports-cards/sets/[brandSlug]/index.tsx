@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 	const brands = await res.json();
 
 	// Get the paths we want to pre-render based on posts
-	const paths = brands.map((brand) => ({
+	const paths = brands.map((brand: any) => ({
 		params: { brandSlug: brand.slug },
 	}));
 
@@ -30,16 +30,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const brandSlug = params?.brandSlug;
 
 	// Get the active brand details
-	console.log(`${baseApiUrl}/brands/${brandSlug}`);
 	const brandRes = await fetch(`${baseApiUrl}/brands/${brandSlug}`);
 	const brand = await brandRes.json();
-	console.log('Brand', brand);
 
 	// Get all sets for this brand
-	console.log(`${baseApiUrl}/${pagePath}/${brandSlug}`);
-	const setRes = await fetch(`${baseApiUrl}/${pagePath}/${brandSlug}`);
+	const setRes = await fetch(`${baseApiUrl}/${pagePath}/byBrand/${brandSlug}`);
 	const sets = await setRes.json();
-	console.log('Sets', sets);
 
 	// the Page component will receive props below at build time
 	return {
@@ -57,11 +53,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	return sets;
 }*/
 
-const Page: NextPage = ({ brand, sets }) => {
+const Page: NextPage = ({ brand, sets }: any) => {
 	brand = JSON.parse(brand);
 	sets = JSON.parse(sets);
 
-	console.log('sets: ', sets);
 	//const router = useRouter();
 	//const routePath = router.asPath;
 
@@ -75,20 +70,21 @@ const Page: NextPage = ({ brand, sets }) => {
 	return (
 		<AuthLayout>
 			<div className="py-4 px-8">
-				<PageHeader title={pageTitle} />
-
 				<div className="mx-auto overflow-hidden">
-					<TradingCardPageNav activeTab="sets" addNew={`${config.sportsCardPageUrl}/${pagePath}/add`} />
+					<TradingCardPageNav activeTab="sets" addNew={config.sportsCardPageUrl + `/` + pagePath + `/add?brand=${brand.slug}`} />
 					<div className="mt-2">
-						<Link href={`${config.sportsCardPageUrl}/sets`}>
-							<a className="text-sm text-indigo-500">&laquo; All Brands</a>
-						</Link>
+						<PageHeader title={pageTitle} />
+						<div>
+							<Link href={`${config.sportsCardPageUrl}/sets`}>
+								<a className="inline-block text-sm text-indigo-500">&laquo; All Brands</a>
+							</Link>
+						</div>
 					</div>
 					<div className="mt-8">
 						<div className="overflow-hidden bg-white shadow sm:rounded-md">
 							{sets[0] ? (
 								<ul role="list" className="mt-4 divide-y divide-gray-200">
-									{sets.map((set) => (
+									{sets.map((set: any) => (
 										<li key={`set_${set.id}`}>
 											<a
 												href={`${config.sportsCardPageUrl}/${pagePath}/${brand.slug}/${set.slug}`}
@@ -96,17 +92,10 @@ const Page: NextPage = ({ brand, sets }) => {
 											>
 												<div className="flex items-center px-4 py-4 sm:px-6">
 													<div className="flex min-w-0 flex-1 items-center">
-														<div className="flex-shrink-0">
-															<img
-																className="h-16 w-16 rounded-full"
-																src={set.img_src ?? '/img/empty-card.jpg'}
-																alt=""
-															/>
-														</div>
-														<div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+														<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
 															<div>
 																<p className="truncate text-xl font-medium text-gray-700">
-																	{set.year} {set.brand} {set.name} ({set.sport})
+																	{set.year} {brand.name} {set.name} ({set.sport})
 																</p>
 															</div>
 														</div>
@@ -129,7 +118,7 @@ const Page: NextPage = ({ brand, sets }) => {
 										No {brand.name} sets have been added yet.
 									</p>
 									<div className="mt-6">
-										<Link href={config.sportsCardPageUrl + `/` + pagePath + `/` + brand.slug + `/add`}>
+										<Link href={config.sportsCardPageUrl + `/` + pagePath + `/add?brand=${brand.slug}`}>
 											<a className="inline-flex items-center rounded-md border border-transparent bg-jacarta-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-jacarta-600 focus:outline-none focus:ring-2 focus:ring-jacarta-800 focus:ring-offset-2">
 												<svg
 													className="-ml-1 mr-2 h-5 w-5"

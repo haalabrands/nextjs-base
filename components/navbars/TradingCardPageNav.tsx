@@ -5,14 +5,14 @@ interface Props {
 	activeTab: string;
 	addNew?: any;
 	addNewLabel?: string;
+	buttons?: any;
 	searchHandler?: any;
 }
 
 const baseUrl = '/app/invest/sports-cards';
 
 const tabs = [
-	{ slug: '', label: 'Overview', current: false },
-	{ slug: 'shop', label: 'Shop', current: false },
+	{ slug: 'cards', label: 'Cards', current: false },
 	{ slug: 'watchlist', label: 'Watchlist', current: false },
 	{ slug: 'collections', label: 'Collections', current: false },
 	{ slug: 'players', label: 'Players', current: false },
@@ -25,6 +25,7 @@ const TradingCardPageNav = ({
 	activeTab,
 	addNew = null,
 	addNewLabel = 'Add New',
+	buttons = [],
 	searchHandler = null,
 }: Props): JSX.Element => {
 	const isActiveTab = (tabSlug: string): boolean => {
@@ -60,6 +61,25 @@ const TradingCardPageNav = ({
 					) : (
 						''
 					)}
+					{
+						buttons.map((btn: any) => (
+							btn.type === 'link' ? (
+								<Link key={`cardNav${btn.key}`} href={btn.href}>
+									<a className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+										{btn.label}
+									</a>
+								</Link>
+							):(
+								<button
+									type="button"
+									onClick={btn.onClick}
+									className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+								>
+									{btn.label}
+								</button>
+							)
+						))
+					}
 				</div>
 			</div>
 			<div className="mt-4">

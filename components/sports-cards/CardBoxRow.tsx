@@ -56,7 +56,7 @@ const CardBoxRow = ({
 							<div className="flex-shrink-0">
 								<img
 									className="w-8 aspect-ratio-card"
-									src="/img/empty-card.png"
+									src="/img/empty-card.jpg"
 									alt=""
 								/>
 							</div>

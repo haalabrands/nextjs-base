@@ -8,11 +8,11 @@ exports.up = async function (knex) {
 	await knex.schema.createTable(tableName, function (table) {
 		table.increments('id');
 		table.string('slug', 100).notNullable();
+		table.string('sport').notNullable();
 		table.smallint('year').unsigned().notNullable();
 		table.string('brand').notNullable();
-		table.string('sport').notNullable();
-		table.integer('brand_set_id').unsigned();
 		table.string('name');
+		table.integer('brand_set_id').unsigned();
 
 		table.integer('base_set_size').unsigned();
 		table.integer('total_set_size').unsigned();

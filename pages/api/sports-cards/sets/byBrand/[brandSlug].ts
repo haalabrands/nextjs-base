@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { brandTableName } from '../../../../models/scBrandModel';
-import { setTableName } from '../../../../models/scSetModel';
-import connect from '../../../../database/connect';
+import { brandTableName } from '../../../../../models/scBrandModel';
+import { setTableName } from '../../../../../models/scSetModel';
+import connect from '../../../../../database/connect';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -16,15 +16,14 @@ export default async function handler(
 		const brand = await db
 			.select('id', 'name', 'slug')
 			.from(brandTableName)
-			.where('slug', brandSlug);
-		console.log('api brand: ', brand);
+			.where('slug', brandSlug)
+			.first();
 
 		const sets = await db
 			.select()
 			.from(setTableName)
 			.where('brand', brandSlug)
-			.orderBy('slug', 'ASC');
-		console.log('api sets: ', sets);
+			.orderBy('slug', 'DESC');
 
 		res.status(200).json(sets);
 	} catch (err) {

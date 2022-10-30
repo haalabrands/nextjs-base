@@ -1,20 +1,39 @@
 import { NextPage } from 'next';
-import useSWR from 'swr';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
 import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
 import config from '../../../../../config';
 import Link from 'next/link';
-import { fetcher, slugify } from '../../../../../util/helpers';
+import { slugify } from '../../../../../util/helpers';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const Page: NextPage = (/*{ brand, sets }*/) => {
+export async function getStaticProps(/*context*/) {
+	let res = await fetch(config.sportsCardApiUrl+'/brands');
+	const brands = await res.json();
+
+	res = await fetch(config.sportsCardApiUrl+'/sports');
+	const sports = await res.json();
+
+	// Pass to the page component as props
+	return {
+		props: {
+			brands: JSON.stringify(brands),
+			sports: JSON.stringify(sports),
+		},
+	}
+}
+
+const Page: NextPage = ({ brands, sports }: any) => {
+	console.log('Building page...')
 	const pagePath = 'sets';
 	const pageTitle = 'Trading Cards : Add New Set ';
 
-	const { data : brands, error: brandError } = useSWR('/api/sports-cards/brands', fetcher)
-	const { data : sports, error: sportError } = useSWR('/api/sports-cards/sports',fetcher)
-	if (brandError || sportError) return <div>Error loading page</div>;
-	if (!(brands || sports)) return <div>Loading...</div>;
+	const router = useRouter();
+	const [brandSlug , setBrandSlug ] = useState(router.query.brand ?? '');
+
+	brands = JSON.parse(brands);
+	sports = JSON.parse(sports);
 
 	const submitForm = async (event: any) => {
 		// Stop the form from submitting and refreshing the page.
@@ -26,22 +45,14 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 		const inputData = {
 			slug: '',
 			sport: event.target.sport_slug.value,
-			brand: event.target.brand_slug.value,
-			brand_set_id: null,
 			year: event.target.year.value,
+			brand: event.target.brand_slug.value,
 			name: event.target.name.value,
-			set_size: null
+			brand_set_id: null,
+			base_set_size: null,
+			img_src: null,
+			release_date: null
 		};
-
-		/*if (!inputData.name) {
-			const brandIdx = brands.findIndex((brand: any) => brand.slug == inputData.brand);
-			if (!brandIdx) {
-				// @TODO Handle error
-			} else {
-				const brand = brands[brandIdx];
-				inputData.name = inputData.year +' '+ brand.name;
-			}
-		}*/
 
 		if (!validateForm(inputData)) {
 			// @TODO Handle & display error messages
@@ -49,13 +60,12 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 		}
 		console.log('Validated.')
 
-		inputData.slug = createSlug(inputData);
+		const setSlug = createSlug(inputData);
+		inputData.slug = setSlug;
 
 		console.log('Posting data:', inputData);
 
-		const set = await createSet(inputData);
-		// @TODO Check response if player was successfully added
-		console.log('Set created', set);
+		await createSet(inputData);
 	};
 
 	const createSlug = (data: any) => {
@@ -63,7 +73,9 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 		if (data.name) {
 			slug += ' '+data.name;
 		}
-		slug += ' '+data.sport;
+		if (data.sport !== 'other') {
+			slug += ' '+data.sport;
+		}
 
 		return slugify(slug);
 	}
@@ -82,19 +94,25 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 		return true;
 	};
 
-	const createSet = async (inputData: any) => {
-		const apiUrl = '/api/sports-cards/sets/add';
+	const createSet = async (input: any) => {
+		const apiUrl = '/api/sports-cards/'+pagePath+'/add';
 		console.log('apiUrl', apiUrl);
 		const response = await fetch(apiUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(inputData),
+			body: JSON.stringify(input),
 		});
-		const result = await response.json();
-
-		return result;
+		console.log('response', response);
+		if (response.status === 200) {
+			//const setIds = await response.json();
+			router.push(config.sportsCardPageUrl+'/'+pagePath+'/'+input.brand+'/'+input.slug);
+		} else if (response.status === 400) {
+			router.push(config.sportsCardPageUrl+'/'+pagePath+'/'+input.brand+'/'+input.slug);
+		} else {
+			alert('There was a problem adding this set')
+		}
 	};
 
 	return (
@@ -134,21 +152,6 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 									</select>
 								</div>
 								<div>
-									<label htmlFor="brand" className="block formLabelText">
-										Brand
-									</label>
-									<select
-										id="brand"
-										name="brand_slug"
-										className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-									>
-										<option></option>
-										{brands && brands.map((brand: any) => {
-											return <option key={brand.slug} value={brand.slug}>{brand.name}</option>;
-										})}
-									</select>
-								</div>
-								<div>
 									<label htmlFor="setYear" className="block formLabelText">
 										Year
 									</label>
@@ -160,6 +163,23 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 											className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 										/>
 									</div>
+								</div>
+								<div>
+									<label htmlFor="brand" className="block formLabelText">
+										Brand
+									</label>
+									<select
+										id="brand"
+										name="brand_slug"
+										value={brandSlug}
+										onChange={event => setBrandSlug(event.value)}
+										className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+									>
+										<option></option>
+										{brands && brands.map((brand: any) => {
+											return <option key={brand.slug} value={brand.slug}>{brand.name}</option>;
+										})}
+									</select>
 								</div>
 								<div>
 									<label htmlFor="setName" className="block formLabelText">

@@ -22,8 +22,9 @@ exports.seed = async function (knex) {
 		{ id: 11, slug: 'cricket', name: 'Cricket' },
 		{ id: 12, slug: 'rugby', name: 'Rugby' },
 		{ id: 13, slug: 'x-games', name: 'X Games' },
-		{ id: 14, slug: 'olympic-sports', name: 'Olympic Sports' },
+		{ id: 14, slug: 'olympics', name: 'Olympics' },
 		{ id: 15, slug: 'horse-racing', name: 'Horse Racing' },
+		{ id: 16, slug: 'other', name: 'Multi-Sport & Other' },
 		// All values above are hard-coded in seeder files. Do not modify.
 	]);
 };

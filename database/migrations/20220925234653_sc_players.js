@@ -54,6 +54,8 @@ exports.up = async function (knex) {
 
 		table.timestamp('created_at').defaultTo(knex.fn.now());
 		table.timestamp('updated_at');
+
+		table.unique(['slug'], { indexName: tableName+'_slug' });
 	});
 };
 

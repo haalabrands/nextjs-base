@@ -24,8 +24,7 @@ export const getStaticProps: GetStaticProps = async (/*context*/) => {
 
 const Page: NextPage = ({ brands }) => {
 	brands = JSON.parse(brands);
-	//console.log('brands: ', brands[0])
-	const pageTitle = 'Trading Card Brands';
+	const pageTitle = 'Trading Card Set Brands';
 
 	return (
 		<AuthLayout>

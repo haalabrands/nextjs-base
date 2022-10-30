@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import PageHeader from '../../../../components/headers/PageHeader';
-//import TradingCardsNavbar from '../../../../components/navbars/TradingCardsNavbar';
 import TradingCardPageNav from '../../../../components/navbars/TradingCardPageNav';
 
 const Page: NextPage = () => {
@@ -13,7 +12,6 @@ const Page: NextPage = () => {
 				<PageHeader title={pageTitle} />
 
 				<div className="mx-auto overflow-hidden">
-					{/*<TradingCardsNavbar />*/}
 					<TradingCardPageNav activeTab="" />
 
 					{/* Replace with page content */}

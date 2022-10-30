@@ -22,7 +22,7 @@ const cards = [
 		imageAlt: '',
 	},
 	{
-		id: 1,
+		id: 3,
 		name: 'Basic Tee 8-Pack',
 		href: '#',
 		price: '$256',
@@ -31,7 +31,7 @@ const cards = [
 		imageAlt: '',
 	},
 	{
-		id: 2,
+		id: 4,
 		name: 'Basic Tee',
 		href: '#',
 		price: '$32',
@@ -40,7 +40,7 @@ const cards = [
 		imageAlt: '',
 	},
 	{
-		id: 1,
+		id: 5,
 		name: 'Basic Tee 8-Pack',
 		href: '#',
 		price: '$256',
@@ -49,7 +49,7 @@ const cards = [
 		imageAlt: '',
 	},
 	{
-		id: 2,
+		id: 6,
 		name: 'Basic Tee',
 		href: '#',
 		price: '$32',
@@ -70,7 +70,7 @@ const CardGallery = (): JSX.Element => {
 			<div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-6 xl:grid-cols-6">
 				{cards.map((card) => (
 					<div
-						key={card.id}
+						key={`card_${card.id}`}
 						className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
 					>
 						<div className="bg-gray-200 group-hover:opacity-75 sm:aspect-none">

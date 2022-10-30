@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Switch } from '@headlessui/react'
+import { Switch } from '@headlessui/react';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
 import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
 import config from '../../../../../config';
 import { playerPhoto } from '../../../../../models/scPlayerModel';
-import { classNames } from '../../../../../util/helpers';
+import { ageFromDate, classNames } from '../../../../../util/helpers';
 import CardGallery from '../../../../../components/sections/CardGallery';
 import CardResultsHeader from '../../../../../components/headers/CardResultsHeader';
 
@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 	console.log('playerSlug: ', playerSlug);
 
 	// Get the player details
-	const res = await fetch(config.sportsCardApiUrl + '/players/' + playerSlug);
+	const res = await fetch(config.sportsCardApiUrl + '/players/bySlug/' + playerSlug);
 	const player = await res.json();
 
 	// the Page component will receive props below at build time
@@ -52,15 +52,23 @@ const Page: NextPage = ({player}) => {
 
 	const pageTitle = player.name;
 
-	const [favorite, setFavorite] = useState(false)
+	const [favorite, setFavorite] = useState(false);
 
 	const birthdate = () => {
+		if (!player.birthdate) return null;
+
 		const d = new Date(player.birthdate);
-		const month = d.toLocaleString('default', { month: 'long' });
+		const month = d.toLocaleString('default', {month: 'short'});
 		const day = d.getDay();
 		const year = d.getFullYear();
-		return month +' '+ day +', '+year;
-	}
+		return month + ' ' + day + ', ' + year;
+	};
+
+	const age = () => {
+		return ageFromDate(player.birthdate);
+	};
+
+	const sportsList = player.sport_ids.split(',');
 
 	return (
 		<AuthLayout>
@@ -81,6 +89,27 @@ const Page: NextPage = ({player}) => {
 									<div className="border-b border-gray-200 bg-white xl:w-64 xl:flex-shrink-0 xl:border-b-0">
 										<div className="h-full py-6 pl-4 pr-6 sm:pl-6 lg:pl-8 xl:pl-0">
 											{/* Start left column area */}
+											<Switch.Group as="div" className="flex justify-center items-center my-2">
+												<Switch
+													checked={favorite}
+													onChange={setFavorite}
+													className={classNames(
+														favorite ? 'bg-indigo-600':'bg-gray-200',
+														'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
+													)}
+												>
+													<span
+														aria-hidden="true"
+														className={classNames(
+															favorite ? 'translate-x-5':'translate-x-0',
+															'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out'
+														)}
+													/>
+												</Switch>
+												<Switch.Label as="span" className="ml-3">
+													<span className="text-sm font-medium text-gray-900">Favorite</span>
+												</Switch.Label>
+											</Switch.Group>
 											<div className="relative h-full" style={{minHeight: '12rem'}}>
 												<div
 													className="aspect-w-1 aspect-h-1 w-full overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
@@ -90,28 +119,15 @@ const Page: NextPage = ({player}) => {
 														className="h-full w-full object-cover object-center group-hover:opacity-75"
 													/>
 												</div>
-												<Switch.Group as="div" className="flex justify-center items-center my-2">
-													<Switch
-														checked={favorite}
-														onChange={setFavorite}
-														className={classNames(
-															favorite ? 'bg-indigo-600' : 'bg-gray-200',
-															'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
-														)}
-													>
-														<span
-															aria-hidden="true"
-															className={classNames(
-																favorite ? 'translate-x-5' : 'translate-x-0',
-																'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out'
-															)}
-														/>
-													</Switch>
-													<Switch.Label as="span" className="ml-3">
-														<span className="text-sm font-medium text-gray-900">Favorite</span>
-													</Switch.Label>
-												</Switch.Group>
-												<ul className="bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
+												<ul className="bg-gray-100 text-gray-600 text-sm py-2 px-3 mt-3 divide-y rounded shadow-sm">
+													<li className="flex items-center py-3">
+														<span className="text-xs italic">Sport </span>
+														<span className="ml-auto">
+															{sportsList.map((sport: any) => (
+																<span>{sport}</span>
+															))}
+													</span>
+													</li>
 													<li className="flex items-center py-3">
 														<span className="text-xs italic">Status</span>
 														<span className="ml-auto">
@@ -119,6 +135,12 @@ const Page: NextPage = ({player}) => {
 																Active
 															</span>
 													</span>
+													</li>
+													<li className="flex items-center py-2">
+														<span className="text-xs italic">Age</span>
+														<span className="ml-auto">
+															{age()}
+														</span>
 													</li>
 													<li className="flex items-center py-2">
 														<span className="text-xs italic">Birthdate</span>
@@ -153,8 +175,8 @@ const Page: NextPage = ({player}) => {
 									<div className="bg-white lg:min-w-0 lg:flex-1">
 										<div className="h-full py-6 px-4 sm:px-6 lg:px-8">
 											{/* Start main area*/}
-											<CardResultsHeader />
-											<CardGallery />
+											<CardResultsHeader/>
+											<CardGallery/>
 											{/* End main area */}
 										</div>
 									</div>

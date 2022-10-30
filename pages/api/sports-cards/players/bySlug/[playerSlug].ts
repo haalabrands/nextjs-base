@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { playerTableName } from '../../../../models/scPlayerModel';
-import connect from '../../../../database/connect';
+import { playerTableName } from '../../../../../models/scPlayerModel';
+import connect from '../../../../../database/connect';
 
 export default async function handler(
 	req: NextApiRequest,

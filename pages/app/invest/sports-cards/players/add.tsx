@@ -1,12 +1,22 @@
 import { NextPage } from 'next';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
 import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
 import config from '../../../../../config';
 import { fetcher, slugify } from '../../../../../util/helpers';
 import Link from 'next/link';
-import { PlayerModel } from '../../../../../models/scPlayerModel';
+
+interface InputData {
+	slug: string;
+	name: string;
+	sport_id?: number;
+	sport_ids: string|[];
+	rookie_year: string | null;
+	talent_level: string | null;
+	birthdate: string | null;
+}
 
 const Page: NextPage = () => {
 	const { data, error } = useSWR('/api/sports-cards/sports', fetcher);
@@ -16,6 +26,8 @@ const Page: NextPage = () => {
 
 	const tab = 'players';
 
+	const router = useRouter();
+
 	const submitForm = async (event: any) => {
 		// Stop the form from submitting and refreshing the page.
 		event.preventDefault();
@@ -23,41 +35,61 @@ const Page: NextPage = () => {
 		console.log('Processing...');
 
 		// Get data from the form.
-		const inputData = {
+		const input: InputData = {
 			slug: '',
 			name: event.target.name.value,
-			sport_ids: [event.target.sport.value],
+			sport_id: event.target.sport.value,
+			sport_ids: '',
 			rookie_year: event.target.rookie_year.value,
 			talent_level: event.target.talent_level.value,
 			birthdate: event.target.birthdate.value,
 		};
-		console.log('inputData', inputData);
+		console.log('input', input);
 
-		if (!validateForm(inputData)) {
+		if (!validateForm(input)) {
 			// @TODO Handle & display error messages
 			return false;
 		}
 		console.log('Validated.');
 
-		inputData.slug = slugify(inputData.name);
-		inputData.sport_ids = JSON.stringify(inputData.sport_ids);
-		const player = await createPlayer(inputData);
-		// @TODO Check response if player was successfully added
-		console.log('Player created', player);
+		if (input.birthdate === "") {
+			input.birthdate = null;
+		}
+		if (input.rookie_year === "") {
+			input.rookie_year = null;
+		}
+		if (input.talent_level === "") {
+			input.talent_level = null;
+		}
+
+		input.slug = slugify(input.name);
+		input.sport_ids = JSON.stringify(input.sport_id);
+		delete input['sport_id'];
+
+		const playerIds = await createPlayer(input);
+		console.log('playerIds', playerIds);
+		if (playerIds && playerIds[0]) {
+			// Redirect to player details/edit page
+			router.push(config.sportsCardPageUrl+'/players/'+input.slug);
+		}
+
+		// @TODO Handle error
 	};
 
 	const validateForm = (data: any) => {
 		console.log('Validating...', data);
 		if (!data.name) {
+			// @TODO Handle failure response
 			return false;
 		}
-		if (!data.sport_ids) {
+		if (!data.sport_id) {
+			// @TODO Handle failure response
 			return false;
 		}
 		return true;
 	};
 
-	const createPlayer = async (inputData: any) => {
+	const createPlayer = async (data: any) => {
 		const apiUrl = '/api/sports-cards/players/add';
 		console.log('apiUrl', apiUrl);
 		const response = await fetch(apiUrl, {
@@ -65,12 +97,26 @@ const Page: NextPage = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(inputData),
+			body: JSON.stringify(data),
 		});
 		const result = await response.json();
 
 		return result;
 	};
+
+	const findPlayerBySlug = async (slug: string) => {
+		const apiUrl = '/api/sports-cards/players/bySlug/'+slug;
+		const response = await fetch(apiUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(slug),
+		});
+		const result = await response.json();
+
+		return result;
+	}
 
 	const pageTitle = 'Trading Cards : Add a Player ';
 

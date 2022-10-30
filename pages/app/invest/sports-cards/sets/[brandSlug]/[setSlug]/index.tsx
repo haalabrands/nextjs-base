@@ -7,6 +7,15 @@ import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import CardBoxRow from '../../../../../../../components/sports-cards/CardBoxRow';
 import CardSetRow from '../../../../../../../components/sports-cards/CardSetRow';
+//import { BrandModel } from '../../../../../../../models/scBrandModel';
+//import { SetModel } from '../../../../../../../models/scSetModel';
+
+const pagePath = 'sets';
+
+/*type Props = {
+	brand: BrandModel,
+	set: SetModel
+}*/
 
 // This function gets called at build time
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
@@ -32,48 +41,96 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 // GetStaticProps gets called at build time
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const brandSlug = params?.brandSlug;
-	const year = params?.year;
 	const setSlug = params?.setSlug;
-	console.log('brandSlug: ',brandSlug)
-	console.log('year: ',year)
-	console.log('setSlug: ',setSlug)
 
-	/*// Get the active brand details
+	// Get all sets for this brand
+	const setRes = await fetch(config.sportsCardApiUrl +'/'+pagePath+'/'+setSlug);
+	const set = await setRes.json();
+
+	// Get the active brand details
 	const brandRes = await fetch(config.sportsCardApiUrl +'/brands/'+brandSlug);
 	const brand = await brandRes.json();
 
-	// Get all sets for this brand
-	const setRes = await fetch(config.sportsCardApiUrl +'/'+pagePath+'/'+brandSlug);
-	const sets = await setRes.json();*/
+	// Get list of brands
+	const brandsRes = await fetch(config.sportsCardApiUrl +'/brands/');
+	const brands = await brandsRes.json();
+
+	// Get list of sports
+	const sportRes = await fetch(config.sportsCardApiUrl +'/sports/');
+	const sports = await sportRes.json();
 
 	// the Page component will receive props below at build time
 	return {
 		props: {
-			//brand: JSON.stringify(brand),
-			//sets: JSON.stringify(sets),
+			brand: JSON.stringify(brand),
+			brands: JSON.stringify(brands),
+			set: JSON.stringify(set),
+			sports: JSON.stringify(sports),
 		},
 	};
 };
 
-const Page: NextPage = (/*{ brand, sets }*/) => {
-	const pageTitle = 'Trading Cards : Set XYZ';
+const Page: NextPage = ({ brand, brands, set, sports }: any) => {
+	brand = JSON.parse(brand);
+	set = JSON.parse(set);
+	sports = JSON.parse(sports);
+	brands = JSON.parse(brands);
+
+	const pageTitle = `${set.year} ${brand.name} ${set.name}`;
+
+	const changeBrand = () => {
+
+	}
+
+	const changeSetName = () => {
+
+	}
+
+	const changeSport = () => {
+
+	}
+
+	const changeYear = () => {
+
+	}
+
+	const navButtons = [
+		{
+			type: 'link',
+			key: 'newCard',
+			href: `${config.sportsCardPageUrl}/cards/add?set=${set.slug}`,
+			label: 'Add Card'
+		},
+		{
+			type: 'link',
+			key: 'newSet',
+			href: `${config.sportsCardPageUrl}/${pagePath}/add?brand=${brand.slug}`,
+			label: 'Add New Set'
+		}
+	];
 
 	return (
 		<AuthLayout>
 			<div className="">
 				<div className="bg-white pt-4 px-8">
-					<PageHeader title={pageTitle} />
-					<TradingCardPageNav activeTab="sets" />
+					<TradingCardPageNav
+						activeTab={pagePath}
+						buttons={navButtons}
+					/>
 				</div>
 
 				<div className="relative flex min-h-screen flex-col">
 					<div className="pl-8 pt-4 bg-white">
-						<Link href={config.sportsCardPageUrl + '/sets'}>
-							<a className="text-sm text-indigo-500">&laquo; Card Brands</a>
-						</Link>
-						<Link href={config.sportsCardPageUrl + '/sets/xyz'}>
-							<a className="block text-sm text-indigo-500">&laquo; XYZ Sets</a>
-						</Link>
+						<PageHeader title={pageTitle} />
+						<div className="-mt-2 mb-2 italic">{set.sport}</div>
+						<div className="flex flex-col space-y-1">
+							<Link href={`${config.sportsCardPageUrl}/${pagePath}`}>
+								<a className="text-sm text-indigo-500">&laquo; All Card Brands</a>
+							</Link>
+							<Link href={`${config.sportsCardPageUrl}/${pagePath}/${brand.slug}`}>
+								<a className="text-sm text-indigo-500">&laquo; All {brand.name} sets</a>
+							</Link>
+						</div>
 					</div>
 					<div className="mx-auto w-full flex-grow lg:flex">
 						<div className="min-w-0 flex-1 bg-white xl:flex lg:w-3/4 lg:flex-shrink-0">
@@ -135,12 +192,14 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 														<select
 															id="sport"
 															name="sport_slug"
+															value={set.sport}
+															onChange={changeSport}
 															className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 														>
 															<option></option>
-															{/*{sports && sports.map((sport: any) => {
+															{sports && sports.map((sport: any) => {
 																return <option key={sport.slug} value={sport.slug}>{sport.name}</option>;
-															})}*/}
+															})}
 														</select>
 													</div>
 												</div>
@@ -158,8 +217,34 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 															type="text"
 															id="setYear"
 															name="year"
+															value={set.year}
+															onChange={changeYear}
 															className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 														/>
+													</div>
+												</div>
+											</div>
+											<div className="py-2 px:4 lg:px-8">
+												<div className="">
+													<label
+														htmlFor="sport"
+														className="block text-sm font-semibold leading-6 text-gray-900"
+													>
+														Sport
+													</label>
+													<div className="mt-1">
+														<select
+															id="brand"
+															name="brand_slug"
+															value={set.brand}
+															onChange={changeBrand}
+															className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+														>
+															<option></option>
+															{brands && brands.map((brand: any) => {
+																return <option key={brand.slug} value={brand.slug}>{brand.name}</option>;
+															})}
+														</select>
 													</div>
 												</div>
 											</div>
@@ -176,6 +261,8 @@ const Page: NextPage = (/*{ brand, sets }*/) => {
 															type="text"
 															id="setName"
 															name="name"
+															value={set.name}
+															onChange={changeSetName}
 															className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 														/>
 													</div>

@@ -7,7 +7,7 @@ import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicon
 const CardResultsHeader = (): JSX.Element => {
 	return (
 		<div className="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
-			<h3 className="text-lg font-medium leading-6 text-gray-900">Player Cards</h3>
+			<h3 className="text-lg font-medium leading-6 text-gray-900">Cards</h3>
 			<div className="mt-3 sm:mt-0 sm:ml-4">
 				<label htmlFor="cardSearch" className="sr-only">
 					Search
