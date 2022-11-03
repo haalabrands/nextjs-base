@@ -1,7 +1,6 @@
 import AnnouncementBar from '../headers/AnnouncementBar';
 import MainHeadsUpBar from '../headers/MainHeadsUpBar';
 import MainNavbar from '../navigation/MainNavbar';
-import ToastNotification from '../notifications/ToastNotification';
 
 interface Props {
 	isAuthenticated: boolean;
@@ -21,7 +20,6 @@ const AppHeader = ({
 			{ showAnnouncementBar && (<AnnouncementBar />) }
 			<MainHeadsUpBar />
 			<MainNavbar isAuthenticated={isAuthenticated} avatar={avatar} greetingName={greeting} />
-			<ToastNotification type="success" label="Successfully saved!" />
 		</div>
 	);
 };

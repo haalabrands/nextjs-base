@@ -2,7 +2,7 @@ import OrderMiniCard from '../cards/OrderMiniCard';
 
 const MainHeadsUpBar = (): JSX.Element => {
 	return (
-		<div className="max-h-20 overflow-hidden">
+		<div className="max-h-20 overflow-hidden hidden xl:block">
 			<div className="container flex justify-center bg-gray-50 px-0">
 				<div className="flex items-center px-4 space-x-4">
 					<div>

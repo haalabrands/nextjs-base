@@ -1,6 +1,6 @@
 import { Disclosure } from '@headlessui/react';
 import MobileMainMenu from '../../menus/MobileMainMenu';
-import MobileUserMenu from '../../menus/MobileUserMenu';
+import UserMenu from '../../menus/UserMenu';
 
 interface Props {
 	isAuthenticated: boolean,
@@ -34,7 +34,7 @@ const MobileNavContainer = ({ isAuthenticated, avatar, greetingName }: Props): J
 				</div>
 				<div className="mt-3 space-y-1">
 
-					<MobileUserMenu isAuthenticated={isAuthenticated} />
+					<UserMenu isAuthenticated={isAuthenticated} isMobile={true} />
 
 				</div>
 			</div>
