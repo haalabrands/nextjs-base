@@ -1,4 +1,4 @@
-const appUrl = process.env.NEXTAUTH_URL;
+const appUrl = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
 
 const config = {
 		appUrl: appUrl,

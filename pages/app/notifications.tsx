@@ -34,11 +34,11 @@ const Page: NextPage = () => {
 					<div className="pageCard padded">
 						<header>
 							<h3 className="cardSubtitle faded">
-								Subtitle (Faded)
+								Notifications
 							</h3>
-							<h1 className="cardTitle mt-4">
-								Headline
-							</h1>
+							{/*<h1 className="cardTitle mt-4">
+								Notifi
+							</h1>*/}
 						</header>
 					</div>
 				</div>

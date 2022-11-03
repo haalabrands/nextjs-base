@@ -1,0 +1,30 @@
+.formLabelText {
+	@apply text-sm font-semibold text-gray-700;
+}
+
+/*
+Global Styles
+ */
+#pageContainer {
+	@apply w-full px-2 md:px-4 lg:px-8;
+}
+#pageContainer.col-3 {
+	@apply mx-auto max-w-7xl
+}
+
+.pageColumn {
+	@apply h-full space-y-2 grow;
+}
+.pageSideColumn {
+	@apply h-full space-y-2 flex-none;
+}
+
+/*
+Pages
+ */
+
+
+/*
+Components
+ */
+@import 'components/cards.css';

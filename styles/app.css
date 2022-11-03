@@ -2,13 +2,18 @@
 @import './_globals.css';
 
 /*
-Utilities
+Theme
  */
-@import './themes/defaultTheme.css';
+@import 'themes/defaultTheme/theme.css';
+
+/**
+Theme Over-rides
+ */
 
 /*
 Pages
  */
+
 
 /*
 Components
