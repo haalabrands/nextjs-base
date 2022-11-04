@@ -7,7 +7,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	const { setSlug } = req.query;
-	console.log('Getting ' + setSlug +' set');
+	//console.log('Getting ' + setSlug +' set');
 
 	try {
 		const db = connect();
@@ -18,7 +18,7 @@ export default async function handler(
 			.where('slug', setSlug)
 			.orderBy('slug', 'ASC')
 			.first();
-		console.log('api set: ', set);
+		//console.log('api set: ', set);
 
 		res.status(200).json(set);
 	} catch (err) {

@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { Switch } from '@headlessui/react';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
-import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
+import TradingCardPageNav from '../../../../../components/navigation/TradingCardPageNav';
 import config from '../../../../../config';
 import { playerPhoto } from '../../../../../models/scPlayerModel';
 import { ageFromDate, classNames } from '../../../../../util/helpers';

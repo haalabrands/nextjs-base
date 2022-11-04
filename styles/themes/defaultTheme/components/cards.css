@@ -1,0 +1,25 @@
+/*
+Page Card
+ */
+.pageCard {
+    @apply h-full rounded-lg border-2 border-gray-100 bg-white;
+}
+.pageCard.padded {
+    @apply p-4;
+}
+.pageCard.padY {
+    @apply py-4;
+}
+.pageCard.padX {
+    @apply px-4;
+}
+
+.cardHeadline {
+    @apply font-bold text-2xl text-gray-900;
+}
+.cardTitle {
+    @apply uppercase font-bold text-sm text-gray-900;
+}
+.cardTitle.faded {
+    @apply text-gray-500;
+}

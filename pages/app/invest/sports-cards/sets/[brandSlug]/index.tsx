@@ -1,13 +1,13 @@
 import { GetStaticProps, NextPage } from 'next';
 import AuthLayout from '../../../../../../layouts/AuthLayout';
-import PageHeader from '../../../../../../components/headers/PageHeader';
-import TradingCardPageNav from '../../../../../../components/navbars/TradingCardPageNav';
-import { ChevronRightIcon, FaceFrownIcon } from '@heroicons/react/20/solid';
 import config from '../../../../../../config';
+import SportsCardMenuCard from '../../../../../../components/cards/SportsCardMenuCard';
 import Link from 'next/link';
+import { ChevronRightIcon, FaceFrownIcon } from '@heroicons/react/20/solid';
 
-const pagePath = 'sets';
+const pageSlug = 'sets';
 const baseApiUrl = config.sportsCardApiUrl;
+const sportsCardPageUrl = config.sportsCardPageUrl;
 
 // This function gets called at build time
 export async function getStaticPaths() {
@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const brand = await brandRes.json();
 
 	// Get all sets for this brand
-	const setRes = await fetch(`${baseApiUrl}/${pagePath}/byBrand/${brandSlug}`);
+	const setRes = await fetch(`${baseApiUrl}/${pageSlug}/byBrand/${brandSlug}`);
 	const sets = await setRes.json();
 
 	// the Page component will receive props below at build time
@@ -46,95 +46,117 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	};
 };
 
-/*const getSetList = async (brandSlug: string) => {
-	const response = await fetch(config.sportsCardApiUrl +'/sports-cards/'+brandSlug+'/sets');
-	const sets = await response.json();
-
-	return sets;
-}*/
-
 const Page: NextPage = ({ brand, sets }: any) => {
 	brand = JSON.parse(brand);
 	sets = JSON.parse(sets);
 
-	//const router = useRouter();
-	//const routePath = router.asPath;
-
-	/*if (!brandSlug) {
-		// Missing brand. Redirect user back to main directory
-		router.push(config.sportsCardPageUrl+'/brands')
-	}*/
-
-	const pageTitle = 'Trading Cards : Sets by ' + brand.name;
+	const pageTitle = brand.name +' Sets';
 
 	return (
 		<AuthLayout>
-			<div className="py-4 px-8">
-				<div className="mx-auto overflow-hidden">
-					<TradingCardPageNav activeTab="sets" addNew={config.sportsCardPageUrl + `/` + pagePath + `/add?brand=${brand.slug}`} />
-					<div className="mt-2">
-						<PageHeader title={pageTitle} />
-						<div>
-							<Link href={`${config.sportsCardPageUrl}/sets`}>
-								<a className="inline-block text-sm text-indigo-500">&laquo; All Brands</a>
-							</Link>
+			<div className="pageContainer columns">
+				{/* Left column */}
+				<div className="pageSideColumn hidden w-56 xl:block">
+					<SportsCardMenuCard activeSlug={pageSlug} />
+
+					<div className="pageCard">
+						<div className="border-b border-gray-300">
+							<div className="bg-gray-900 text-gray-100 font-bold uppercase text-sm text-center">
+								Full Width Block
+							</div>
+						</div>
+						<div className="p-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
 						</div>
 					</div>
-					<div className="mt-8">
-						<div className="overflow-hidden bg-white shadow sm:rounded-md">
-							{sets[0] ? (
-								<ul role="list" className="mt-4 divide-y divide-gray-200">
-									{sets.map((set: any) => (
-										<li key={`set_${set.id}`}>
-											<a
-												href={`${config.sportsCardPageUrl}/${pagePath}/${brand.slug}/${set.slug}`}
-												className="block hover:bg-gray-50"
-											>
-												<div className="flex items-center px-4 py-4 sm:px-6">
-													<div className="flex min-w-0 flex-1 items-center">
-														<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
-															<div>
-																<p className="truncate text-xl font-medium text-gray-700">
-																	{set.year} {brand.name} {set.name} ({set.sport})
-																</p>
-															</div>
-														</div>
-														<ChevronRightIcon
-															className="h-5 w-5 text-gray-400"
-															aria-hidden="true"
-														/>
-													</div>
-												</div>
-											</a>
-										</li>
-									))}
-								</ul>
-							) : (
-								<div className="text-center">
-									<div className="flex justify-center">
-										<FaceFrownIcon className="h-48 w-48 text-gray-100" />
-									</div>
-									<p className="mt-8 text-lg text-gray-500">
-										No {brand.name} sets have been added yet.
-									</p>
-									<div className="mt-6">
-										<Link href={config.sportsCardPageUrl + `/` + pagePath + `/add?brand=${brand.slug}`}>
-											<a className="inline-flex items-center rounded-md border border-transparent bg-jacarta-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-jacarta-600 focus:outline-none focus:ring-2 focus:ring-jacarta-800 focus:ring-offset-2">
-												<svg
-													className="-ml-1 mr-2 h-5 w-5"
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 20 20"
-													fill="currentColor"
-													aria-hidden="true"
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
+				</div>
+
+				{/* Center column */}
+				<div className="pageColumn">
+					<div className="pageCard padded">
+						<header>
+							<h2 className="cardTitle">
+								Sports Cards
+							</h2>
+							<h3 className="cardHeadline mt-4">
+								{pageTitle}
+							</h3>
+							<div className="mt-4">
+								{sets[0] ? (
+									<ul role="list" className="mt-4 divide-y divide-gray-200">
+										{sets.map((set: any) => (
+											<li key={`set_${set.id}`}>
+												<a
+													href={`${sportsCardPageUrl}/${pageSlug}/${brand.slug}/${set.slug}`}
+													className="block hover:bg-gray-50"
 												>
-													<path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-												</svg>
-												Add a Set
-											</a>
-										</Link>
+													<div className="flex items-center px-4 py-4 sm:px-6">
+														<div className="flex min-w-0 flex-1 items-center">
+															<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
+																<div>
+																	<p className="truncate text-xl font-medium text-gray-700">
+																		{set.year} {brand.name} {set.name} ({set.sport})
+																	</p>
+																</div>
+															</div>
+															<ChevronRightIcon
+																className="h-5 w-5 text-gray-400"
+																aria-hidden="true"
+															/>
+														</div>
+													</div>
+												</a>
+											</li>
+										))}
+									</ul>
+								) : (
+									<div className="text-center">
+										<div className="flex justify-center">
+											<FaceFrownIcon className="h-48 w-48 text-gray-100" />
+										</div>
+										<p className="mt-8 text-lg text-gray-500">
+											No {brand.name} sets have been added yet.
+										</p>
+										<div className="mt-6">
+											<Link href={`${sportsCardPageUrl}/${pageSlug}/add?brand=${brand.slug}`}>
+
+												<a className="inline-flex items-center rounded-md border border-transparent bg-jacarta-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-jacarta-600 focus:outline-none focus:ring-2 focus:ring-jacarta-800 focus:ring-offset-2">
+													<svg
+														className="-ml-1 mr-2 h-5 w-5"
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 20 20"
+														fill="currentColor"
+														aria-hidden="true"
+													>
+														<path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+													</svg>
+													Add a Set
+												</a>
+											</Link>
+										</div>
 									</div>
-								</div>
-							)}
+								)}
+							</div>
+						</header>
+					</div>
+				</div>
+
+				{/* Right column */}
+				<div className="pageSideColumn hidden w-72 lg:block">
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
 						</div>
 					</div>
 				</div>

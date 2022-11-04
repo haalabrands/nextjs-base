@@ -1,0 +1,39 @@
+/*
+Modules
+ */
+@import '../../modules/TradingCards.css';
+
+
+/*
+Global Styles
+ */
+.pageContainer {
+	@apply w-full mx-auto xl:container px-2 md:px-4 lg:px-8;
+}
+.pageContainer.columns {
+	@apply flex gap-x-6 my-4 lg:my-8
+}
+
+.pageColumn {
+	@apply h-full space-y-2 grow;
+}
+.pageSideColumn {
+	@apply h-full space-y-2 flex-none;
+}
+
+.formLabelText {
+	@apply text-sm font-semibold text-gray-700;
+}
+
+
+
+/*
+Pages
+ */
+
+
+
+/*
+Components
+ */
+@import 'components/cards.css';

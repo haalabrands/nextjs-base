@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
-import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
+import TradingCardPageNav from '../../../../../components/navigation/TradingCardPageNav';
 import config from '../../../../../config';
 import Link from 'next/link';
 import AddButton from '../../../../../components/buttons/addButton';

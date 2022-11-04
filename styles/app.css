@@ -2,14 +2,14 @@
 @import './_globals.css';
 
 /*
-Utilities
+Theme
  */
-@import './themes/defaultTheme.css';
+@import 'themes/defaultTheme/theme.css';
 
 /*
-Pages
- */
 
-/*
-Components
- */
+No Theme Over-rides
+
+Edit the theme files (or create new, modified version)
+
+*/

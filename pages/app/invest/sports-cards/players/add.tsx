@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import AuthLayout from '../../../../../layouts/AuthLayout';
 import PageHeader from '../../../../../components/headers/PageHeader';
-import TradingCardPageNav from '../../../../../components/navbars/TradingCardPageNav';
+import TradingCardPageNav from '../../../../../components/navigation/TradingCardPageNav';
 import config from '../../../../../config';
 import { fetcher, slugify } from '../../../../../util/helpers';
 import Link from 'next/link';

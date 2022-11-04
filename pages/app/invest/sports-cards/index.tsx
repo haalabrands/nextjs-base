@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import PageHeader from '../../../../components/headers/PageHeader';
-import TradingCardPageNav from '../../../../components/navbars/TradingCardPageNav';
+import TradingCardPageNav from '../../../../components/navigation/TradingCardPageNav';
 
 const Page: NextPage = () => {
 	const pageTitle = 'Trading Cards : Dashboard';

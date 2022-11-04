@@ -1,20 +1,57 @@
 import { NextPage } from 'next';
-import PageHeader from '../../components/headers/PageHeader';
 import AuthLayout from '../../layouts/AuthLayout';
 
 const Page: NextPage = () => {
-	const pageTitle = 'Dashboard';
 
 	return (
 		<AuthLayout>
-			<div className="pb-8">
-				<PageHeader title={pageTitle} />
-				<div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-					{/* Replace with page content */}
-					<div className="">
-						<div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
+			<div className="container flex space-x-6 mt-8">
+				{/* Left column */}
+				<div className="flex-none w-56 h-full space-y-2 hidden lg:block">
+					<div className="pageCard">
+						<div className="border-b border-gray-300">
+							<div className="bg-gray-900 text-gray-100 font-bold uppercase text-sm text-center">
+								Full Width Block
+							</div>
+						</div>
+						<div className="p-4">
+							<h2 className="cardSubtitle">
+								Padded Block
+							</h2>
+						</div>
 					</div>
-					{/* /End page content */}
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardSubtitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
+				</div>
+
+				{/* Center column */}
+				<div className="grow h-full space-y-2">
+					<div className="pageCard padded">
+						<header>
+							<h3 className="cardSubtitle faded">
+								Subtitle (Faded)
+							</h3>
+							<h1 className="cardTitle mt-4">
+								Headline
+							</h1>
+						</header>
+					</div>
+				</div>
+
+				{/* Right column */}
+				<div className="flex-none w-72 h-full space-y-2 hidden 2xl:block">
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardSubtitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
 				</div>
 			</div>
 		</AuthLayout>

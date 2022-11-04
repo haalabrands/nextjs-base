@@ -1,0 +1,66 @@
+import { NextPage } from 'next';
+import AuthLayout from '../../../../../layouts/AuthLayout';
+import SportsCardMenuCard from '../../../../../components/cards/SportsCardMenuCard';
+
+const Page: NextPage = () => {
+	const pageSlug = 'collections';
+	const pageTitle = 'Collections';
+
+	return (
+		<AuthLayout>
+			<div className="pageContainer columns">
+				{/* Left column */}
+				<div className="pageSideColumn hidden w-56 xl:block">
+					<SportsCardMenuCard activeSlug={pageSlug} />
+
+					<div className="pageCard">
+						<div className="border-b border-gray-300">
+							<div className="bg-gray-900 text-gray-100 font-bold uppercase text-sm text-center">
+								Full Width Block
+							</div>
+						</div>
+						<div className="p-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
+				</div>
+
+				{/* Center column */}
+				<div className="pageColumn">
+					<div className="pageCard padded">
+						<header>
+							<h2 className="cardTitle">
+								Sports Cards
+							</h2>
+							<h3 className="cardHeadline mt-4">
+								{pageTitle}
+							</h3>
+						</header>
+					</div>
+				</div>
+
+				{/* Right column */}
+				<div className="pageSideColumn hidden w-72 lg:block">
+					<div className="pageCard padY">
+						<div className="w-full px-4">
+							<h2 className="cardTitle">
+								Padded Block
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</AuthLayout>
+	);
+};
+
+export default Page;

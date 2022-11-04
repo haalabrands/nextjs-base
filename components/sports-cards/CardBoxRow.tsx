@@ -35,7 +35,7 @@ const CardBoxRow = ({
 						onChange={setEnabled}
 						className={classNames(
 							isEnabled ? 'bg-indigo-600' : 'bg-gray-200',
-							'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+							'relative inline-flex h-6 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
 						)}
 					>
 						<span
@@ -46,23 +46,13 @@ const CardBoxRow = ({
 							)}
 						/>
 					</Switch>
-					{/*<Switch.Label as="span" className="w-full ml-2">
-
-				</Switch.Label>*/}
 				</Switch.Group>
 				<button type="button" className="block w-full" onClick={toggleRow}>
-					<div className="w-full flex justify-between items-center px-4 py-4">
+					<div className="w-full flex justify-between items-center p-4">
 						<div className="flex items-center">
-							<div className="flex-shrink-0">
-								<img
-									className="w-8 aspect-ratio-card"
-									src="/img/empty-card.jpg"
-									alt=""
-								/>
-							</div>
 							<div className="w-full pl-2 pr-4">
 								<div>
-									<p className="truncate text-sm font-semibold text-jacarta-500">
+									<p className="truncate text-xs font-semibold text-jacarta-500">
 										{name}
 									</p>
 								</div>
@@ -75,7 +65,7 @@ const CardBoxRow = ({
 				</button>
 			</div>
 			{isOpen && (
-				<div className="flex flex-col space-y-2 mt-4 px:4 lg:px-8">
+				<div className="flex flex-col space-y-2 mt-4">
 					<div className="">
 						<label
 							htmlFor="packsPerBox"
