@@ -36,3 +36,34 @@ export const slugify = (str) => {
 
 	return str;
 };
+
+export const timestampToDate = (timestamp) => {
+	const date = new Date(timestamp);
+	const fullMonth = date.toLocaleString('en-US', { month: 'long' })
+	return `${fullMonth} ${date.getDate()}, ${date.getFullYear()}`
+}
+
+/**
+ * Calculates an age using a date/birthdate
+ *
+ * @param birthdate
+ * @returns {null|number}
+ */
+export const ageFromDate = (birthdate) => {
+	if (!birthdate) return null;
+
+	const dob = new Date(birthdate);
+	//calculate month difference from current date in time
+	const month_diff = Date.now() - dob.getTime();
+
+	//convert the calculated difference in date format
+	const age_dt = new Date(month_diff);
+
+	//extract year from date
+	const year = age_dt.getUTCFullYear();
+
+	//now calculate the age of the user
+	const age = Math.abs(year - 1970);
+
+	return age;
+}

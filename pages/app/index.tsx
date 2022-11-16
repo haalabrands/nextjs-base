@@ -15,14 +15,14 @@ const Page: NextPage = () => {
 							</div>
 						</div>
 						<div className="p-4">
-							<h2 className="cardSubtitle">
+							<h2 className="cardTitle">
 								Padded Block
 							</h2>
 						</div>
 					</div>
 					<div className="pageCard padY">
 						<div className="w-full px-4">
-							<h2 className="cardSubtitle">
+							<h2 className="cardTitle">
 								Padded Block
 							</h2>
 						</div>
@@ -33,8 +33,8 @@ const Page: NextPage = () => {
 				<div className="grow h-full space-y-2">
 					<div className="pageCard padded">
 						<header>
-							<h3 className="cardSubtitle faded">
-								Subtitle (Faded)
+							<h3 className="cardTitle faded">
+								Subtitle
 							</h3>
 							<h1 className="cardTitle mt-4">
 								Headline
@@ -47,7 +47,7 @@ const Page: NextPage = () => {
 				<div className="flex-none w-72 h-full space-y-2 hidden 2xl:block">
 					<div className="pageCard padY">
 						<div className="w-full px-4">
-							<h2 className="cardSubtitle">
+							<h2 className="cardTitle">
 								Padded Block
 							</h2>
 						</div>

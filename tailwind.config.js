@@ -24,10 +24,10 @@ module.exports = {
 			'accent-lighter': '#b9a0ff',
 			'light-base': '#f5f8fa',
 			gray: colors.gray,
-			green: '#10b981',
+			green: colors.green,
 			indigo: colors.indigo,
 			orange: '#feb240',
-			red: '#ef4444',
+			red: colors.red,
 			blue: '#428af8',
 			jacarta: {
 				base: '#5a5d79',

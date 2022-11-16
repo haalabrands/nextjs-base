@@ -105,8 +105,9 @@ export default NextAuth({
 			 */
 			if (user) {
 				token.id = user.id;
+				token.userId = user.id;
 				token.username = user.username;
-				token.greeting = user.username;
+				token.greeting = user.greeting;
 				// Temporary avatar for authenticated users.
 				// @TODO Get actual value from database before putting in production.
 				token.avatar = '/img/default-avatar.png';
@@ -127,7 +128,7 @@ export default NextAuth({
 			return baseUrl;
 		},*/
 
-		session: ({ session, token }) => {
+		session: async ({ session, token }) => {
 			/*
 			This is called whenever a session is checked.
 			By default, only a subset of the token is returned for increased security.
@@ -154,6 +155,7 @@ export default NextAuth({
 			// Send properties to the client (ex. an access_token from a provider).
 			if (token) {
 				session.id = token.id;
+				session.user.id = token.userId;
 				session.user.greeting = token.greeting;
 				session.user.username = token.username;
 				session.user.avatar = token.avatar;

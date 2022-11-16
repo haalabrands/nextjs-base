@@ -11,6 +11,7 @@ import UserMenu from '../../menus/UserMenu';
 import MobileNavContainer from './MobileNavContainer';
 import ModuleNavbar from './ModuleNavbar';
 import { useRouter } from 'next/router';
+import NotificationsDropdownMenu from '../../menus/NotificationsDropdownMenu';
 
 interface Props {
 	isAuthenticated: boolean,
@@ -104,22 +105,9 @@ const MainNavbar = ({ isAuthenticated, avatar, greetingName }: Props): JSX.Eleme
 										leaveTo="transform opacity-0 scale-95"
 									>
 
-										<Menu.Items className="absolute right-0 z-10 w-72 mt-2 p-4 origin-top-right rounded-md bg-white shadow-lg focus:outline-none">
-											<Menu.Item key={`NotificationsMenu`}>
-												<div className="cardTitle mb-4">Notifications</div>
-											</Menu.Item>
-											<Menu.Item key={`Notification1`}>
-												<span className="text-sm">There are no new notifications.</span>
-											</Menu.Item>
-											<Menu.Item key={`Notification1`}>
-												<a
-													href={`/app/notifications`}
-													className='block pt-4 text-sm text-gray-700 text-center hover:text-indigo-500'
-												>
-													View all notifications
-												</a>
-											</Menu.Item>
-										</Menu.Items>
+										<div className="absolute right-0 z-10 w-[250px] md:w-[400px] mt-2 origin-top-right rounded-md bg-white shadow-lg focus:outline-none">
+											<NotificationsDropdownMenu />
+										</div>
 									</Transition>
 								</Menu>
 

@@ -35,7 +35,7 @@ const ToastNotification = ({ type = 'success', label, message }: Props): JSX.Ele
 							<div className="p-4">
 								<div className="flex items-start">
 									<div className="flex-shrink-0">
-										<CheckCircleIcon className={`h-6 w-6 ${type === 'success' ? "text-green" : "text-gray=500"}`} aria-hidden="true" />
+										<CheckCircleIcon className={`h-6 w-6 ${type === 'success' ? "text-green-500" : "text-gray-500"}`} aria-hidden="true" />
 									</div>
 									<div className="ml-3 w-0 flex-1 pt-0.5">
 										<p className="text-sm font-medium text-gray-900">

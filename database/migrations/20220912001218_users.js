@@ -12,6 +12,8 @@ exports.up = async function (knex) {
 		table.string('greeting', 40);
 		table.string('password', 191);
 
+		table.string('avatar', 191);
+
 		table.unique('username');
 		table.unique('email');
 

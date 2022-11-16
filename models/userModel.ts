@@ -1,14 +1,21 @@
-/**
- * User model schema
- */
-export interface UserProps {
+export interface IUser {
 	id: number;
 	username: string;
 	email: string;
-	password: string;
 	greeting: string;
 	full_name: string;
 	phone: string | null;
+	avatar: string | null;
+	password: string;
+	created_at: string;
+	updated_at: string;
+}
+
+export interface IUserSession {
+	id?: number | null;
+	username?: string | null;
+	greeting?: string | null;
+	avatar?: string | null;
 }
 
 /**
@@ -18,6 +25,8 @@ export interface UserRegistrationProps {
 	full_name: string;
 	username: string;
 	email: string;
+	greeting?: string;
+	avatar?: string | null;
 	password: string;
 	password_confirm?: string;
 }

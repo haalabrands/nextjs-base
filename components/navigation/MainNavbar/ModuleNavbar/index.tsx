@@ -4,12 +4,36 @@ import { classNames } from '../../../../util/helpers';
 import Link from 'next/link';
 
 const moduleNav: any = {
-	invest: {
-		label: 'Investments',
+	inventory: {
+		label: 'Inventory',
 		tabs: [
-			{ label: 'Stocks & ETFs', slug: 'stocks' },
-			{ label: 'Crypto', slug: 'crypto' },
-			{ label: 'Sports Cards', slug: 'sports-cards' },
+			{ label: 'View Inventory', slug: '' },
+			{ label: 'Add New', slug: 'create' },
+		],
+	},
+	shops: {
+		label: 'Shops',
+		tabs: [
+			{ label: 'Overview', slug: '' },
+			{ label: 'Orders', slug: 'orders' },
+			{ label: 'Shipments', slug: 'shipments' },
+			{ label: 'Listings', slug: 'listings' },
+			{ label: 'Channels', slug: 'channels' },
+			{ label: 'Brands', slug: 'brands', href: '/app/my/brands' },
+			{ label: 'Marketplaces', slug: 'marketplaces' },
+		],
+		/*more: [
+			{ label: 'Brands', slug: 'brands' },
+			{ label: 'Marketplaces', slug: 'marketplaces' },
+		]*/
+	},
+	my: {
+		label: 'My Account',
+		tabs: [
+			{ label: 'Profile', slug: 'profile' },
+			{ label: 'Brands', slug: 'brands' },
+			{ label: 'Teams', slug: 'profile' },
+			{ label: 'Settings', slug: 'settings' },
 		],
 	},
 	admin: {
@@ -17,8 +41,9 @@ const moduleNav: any = {
 		tabs: [
 			{ label: 'Users', slug: 'users' },
 			{ label: 'Roles', slug: 'roles' },
+			{ label: 'Modules', slug: 'modules' },
 			{ label: 'Logs', slug: 'logs' },
-			{ label: 'Text & Language', slug: 'language' },
+			{ label: 'Language', slug: 'language' },
 		],
 	}
 }
@@ -35,7 +60,7 @@ const ModuleNavbar = ({ activeSlug }: Props): JSX.Element => {
 		return (
 			<div className="bg-white border-b border-gray-100">
 				<div className="bg-white">
-					<div className="w-full mx-auto xl:container px-4 sm:px-6 lg:px-8">
+					<div className="pageContainer">
 						<div className="">
 							<div className="flex h-10 items-center justify-between">
 
@@ -45,15 +70,15 @@ const ModuleNavbar = ({ activeSlug }: Props): JSX.Element => {
 									</a>
 								</div>
 
-								<div className="hidden h-full lg:flex">
+								<div className="hidden h-full md:flex">
 									<div className="flex h-full justify-center ml-8 gap-x-8">
 										{menu.tabs.map((tab: any, tabIdx: number) => {
 											const open = false;
+											const href = tab.href ? tab.href : `${baseUrl}/${tab.slug}`;
 											if (!tab.subMenu) {
 												{/* Menu Link */}
 												return (
-													<Link key={`ModuleLink_${activeSlug}`}
-																className="flex" href={`${baseUrl}/${tab.slug}`}>
+													<Link key={`ModuleLink_${tabIdx}`} className="flex" href={href}>
 														<a className={classNames(
 															open
 																? 'border-indigo-600 text-gray-800'
@@ -71,6 +96,19 @@ const ModuleNavbar = ({ activeSlug }: Props): JSX.Element => {
 												)
 											}
 										})}
+										{/*{
+											menu.more && (
+												menu.more.map((tab: any, tabIdx: number) => {
+													return (
+														<Link key={`ModuleLink_more${tabIdx}`} className="flex" href={`${baseUrl}/${tab.slug}`}>
+															<a className="flex items-center border-transparent text-gray-500 hover:border-indigo-600 hover:text-gray-800 relative z-10 -mb-px border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out focus:outline-0">
+																{tab.label}
+															</a>
+														</Link>
+													)
+												})
+											)
+										}*/}
 									</div>
 									{/* Link menu */}
 									{/* Dropdown menus */}
@@ -111,7 +149,7 @@ const ModuleNavbar = ({ activeSlug }: Props): JSX.Element => {
 																<div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
 																<div className="relative bg-white">
-																	<div className="w-full mx-auto xl:container px-8">
+																	<div className="pageContainer">
 																		<div className="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12">
 																			<div className="grid grid-cols-2 gap-y-10 gap-x-8">
 																				<div>

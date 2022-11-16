@@ -7,35 +7,35 @@ interface Props {
 }
 
 const menu = [
-	{ label: 'Account Settings', slug: 'settings' },
+	{label: 'Account Settings', slug: 'settings', uri: 'account/settings'},
+	{label: 'My Brands', slug: 'brands', uri: 'brands'},
 ];
 
-const UserMenu = ({ isAuthenticated, isMobile = false }: Props): JSX.Element => {
+const UserMenu = ({isAuthenticated, isMobile = false}: Props): JSX.Element => {
 	return (
 		<>
 			{menu.map((item) => {
+				const key = `UserMenu${item.slug}`;
+				const href = `/app/my/${item.uri}`;
 				if (isMobile) {
 					return (
 						<Disclosure.Button
-							key={`mobileUserMenu${item.slug}`}
+							key={key}
 							as="a"
-							href={`/app/account/${item.slug}`}
+							href={href}
 							className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
 						>
 							{item.label}
 						</Disclosure.Button>
-					)
+					);
 				} else {
 					return (
-						<Menu.Item key={`UserMenu${item.slug}`}>
-							<a
-								href={`/app/account/${item.slug}`}
-								className='block px-4 py-2 text-sm text-gray-700'
-							>
+						<Menu.Item key={key}>
+							<a href={href} className="block px-4 py-2 text-sm text-gray-700">
 								{item.label}
 							</a>
 						</Menu.Item>
-					)
+					);
 				}
 			})}
 
@@ -52,13 +52,13 @@ const UserMenu = ({ isAuthenticated, isMobile = false }: Props): JSX.Element => 
 								>
 									Sign Out
 								</Disclosure.Button>
-							)
+							);
 						} else {
 							return (
 								<Menu.Item key="signoutBtnMobile">
 									<LogoutButton/>
 								</Menu.Item>
-							)
+							);
 						}
 					}
 				})()

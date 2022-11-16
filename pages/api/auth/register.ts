@@ -47,6 +47,8 @@ export default async function handler(
 	inputData.password = hashedPassword;
 	delete inputData.password_confirm;
 
+	inputData.greeting = inputData.username;
+
 	db(userTable)
 		.insert({
 			...inputData,

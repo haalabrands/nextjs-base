@@ -1,15 +1,17 @@
-.formLabelText {
-	@apply text-sm font-semibold text-gray-700;
-}
+/*
+Modules
+ */
+
+
 
 /*
 Global Styles
  */
-#pageContainer {
-	@apply w-full px-2 md:px-4 lg:px-8;
+.pageContainer {
+	@apply w-full mx-auto xl:container px-2 md:px-4 lg:px-8;
 }
-#pageContainer.col-3 {
-	@apply mx-auto max-w-7xl
+.pageContainer.columns {
+	@apply flex gap-x-6 py-4 lg:py-8 xl:py-12
 }
 
 .pageColumn {
@@ -19,9 +21,21 @@ Global Styles
 	@apply h-full space-y-2 flex-none;
 }
 
+.formLabelText {
+	@apply text-sm font-semibold text-gray-700;
+}
+.required {
+	@apply text-sm italic text-red-700 font-medium;
+}
+.optional {
+	@apply text-xs italic text-gray-500 font-medium;
+}
+
+
 /*
 Pages
  */
+
 
 
 /*

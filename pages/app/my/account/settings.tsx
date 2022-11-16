@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { useState } from 'react'
 import { Switch } from '@headlessui/react'
-import { classNames } from '../../../util/helpers';
-import AuthLayout from '../../../layouts/AuthLayout';
+import { classNames } from '../../../../util/helpers';
+import AuthLayout from '../../../../layouts/AuthLayout';
 
 const tabs = [
 	{ label: 'General', href: '#', current: true },
