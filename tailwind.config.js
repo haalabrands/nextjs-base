@@ -10,9 +10,6 @@ module.exports = {
 	],
 	theme: {
 		extend: {
-			aspectRatio: {
-				card: '3.5 / 2.5',
-			},
 		},
 		colors: {
 			transparent: 'transparent',
